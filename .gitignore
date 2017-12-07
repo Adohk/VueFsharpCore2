@@ -2,6 +2,7 @@
 node_modules/
 bin/
 obj/
+dotnetpublish/
 wwwroot/
 
 npm-debug.log
