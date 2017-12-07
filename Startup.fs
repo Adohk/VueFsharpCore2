@@ -7,6 +7,10 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
 open Microsoft.AspNetCore.SpaServices.Webpack
 
+type FallbackDefaults =
+    { controller : string
+      action : string}
+
 type Startup private () =
     new (env: IHostingEnvironment) as this =
         Startup() then
@@ -35,13 +39,14 @@ type Startup private () =
         else
             app.UseExceptionHandler("/Home/Error") |> ignore
 
-        app.UseStaticFiles() |> ignore
+        app.UseStaticFiles() |> ignore                      
 
-        app.UseMvc(fun routes ->            
+        let spaFallbackDefaults = { controller = "Home"; action = "Index"}
+        app.UseMvc(fun routes ->                       
             routes.MapRoute(
                 name = "default",
                 template = "{controller=Home}/{action=Index}/{id?}") |> ignore
             routes.MapSpaFallbackRoute(
-                name = "spa-fallback",
-                defaults = "{controller=Home}/{action=Index}") |> ignore
-        ) |> ignore    
+                name = "spa-fallback",                
+                defaults = spaFallbackDefaults) |> ignore
+        ) |> ignore
