@@ -1,11 +1,9 @@
 ﻿<template>
     <div>
         <h1>Weather forecast</h1>
-
         <p>This component demonstrates fetching data from the server.</p>
-
-        <p v-if="!forecasts"><em>Loading...</em></p>
-
+				<!-- Instead of doing an 'if-not' logic here, which is clunky, use v-else below the 'if-forecasts' table -->
+        <!-- <p v-if="!forecasts"><em>Loading...</em></p> -->
         <table class="table" v-if="forecasts">
             <thead>
                 <tr>
@@ -16,49 +14,37 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="forecast in forecasts" >
-                    <td>{{ forecast.dateFormatted }}</td>
-                    <td>{{ forecast.temperatureC }}</td>
-                    <td>{{ forecast.temperatureF }}</td>
-                    <td>{{ forecast.summary }}</td>
+								<!-- This is optional but a nice way of showcasing Vue's ability to destructure objects using a v-for -->
+								<!-- Make sure this works, but I believe it should fire fine -->
+                <tr v-for="{dateFormatted, temperatureC, temperatureF, summary} in forecasts" >
+                    <td>{{ dateFormatted }}</td>
+                    <td>{{ temperatureC }}</td>
+                    <td>{{ temperatureF }}</td>
+                    <td>{{ summary }}</td>
                 </tr>
             </tbody>
         </table>
-        
-
+				<p v-else><em>Loading...</em></p>
     </div>
 </template>
 
 <script>
+import { mapState.mapActions } from 'vuex'
 export default {
-    data() {
-        return {
-            forecasts: null
-        }
-    },
+	data() {
+		return {}
+	},
+	computed: {
+		...mapState(['forecasts'])
+	}
 
-    methods: {
-    },
+	methods: {
+		...mapActions(['GET_FORECASTS'])
+	},
 
-    async created() {
-        // ES2017 async/await syntax via babel-plugin-transform-async-to-generator
-        // TypeScript can also transpile async/await down to ES5
-        try {
-            let response = await this.$http.get('/api/SampleData/WeatherForecasts')
-            console.log(response.data);
-            this.forecasts = response.data;
-        } catch (error) {
-            console.log(error)
-        }
-        // Old promise-based approach
-        //this.$http
-        //    .get('/api/SampleData/WeatherForecasts')
-        //    .then(response => {
-        //        console.log(response.data)
-        //        this.forecasts = response.data
-        //    })
-        //    .catch((error) => console.log(error))*/
-    }
+	async created() {
+		this.GET_FORECASTS()
+	}
 }
 </script>
 
