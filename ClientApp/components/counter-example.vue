@@ -1,16 +1,15 @@
-<template>
-<div>
-	<h1>Counter</h1>
-	<p>This is a simple example of a Vue.js component & Vuex</p>
-	<p>
-		Current count (Vuex):<strong> {{ currentCount }} </strong>
-	</p>
-	<p>
-		Auto count:<strong> {{ autoCount }} </strong>
-	</p>
-	<button @click="incrementCounter()">Increment</button>
-	<button @click="resetCounter()">Reset</button>
-</div>
+<template lang="pug">
+	div
+		h1 Counter
+		p This is a simple example of a Vue.js component & Vuex
+		p
+			| Current count (Vuex):
+			strong  {{ currentCount }}
+		p
+			| Auto count:
+			strong  {{ autoCount }}
+		button(@click="incrementCounter()") Increment
+		button(@click="resetCounter()") Reset
 </template>
 
 <script>
