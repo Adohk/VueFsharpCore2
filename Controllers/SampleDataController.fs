@@ -16,7 +16,7 @@ type SampleDataController () =
     let summaries = [| "Freezing"; "Bracing"; "Chilly"; "Cool"; "Mild"; "Warm"; "Balmy"; "Hot"; "Sweltering"; "Scorching" |]
 
     [<HttpGet("WeatherForecasts")>]
-    member this.Get() =
+    member API.WeatherForecasts() =
         let rng = Random()
         let data = 
             [1 .. 5] |> List.map (fun i ->
