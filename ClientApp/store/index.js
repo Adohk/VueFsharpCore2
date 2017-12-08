@@ -24,9 +24,9 @@ const actions = ({
     SET_COUNTER({ commit }, obj) {
         commit('MAIN_SET_COUNTER', obj)
     },
-    GET_FORECASTS({ commit }, instance) {
-        instance.$axios.get('/api/SampleData/WeatherForecasts').then(forecasts => commit('SET_FORECASTS', forecasts.data))
-            .catch(error => console.log(error))
+    async GET_FORECASTS({ commit }, instance) {
+        await instance.$axios.get('/api/SampleData/WeatherForecasts').then(forecasts =>
+            commit('SET_FORECASTS', forecasts.data)).catch(error => console.log(error))
     }
 })
 
