@@ -38,11 +38,11 @@ export default {
 	computed: {
 		...mapState(['forecasts'])
 	},
-	methods: {
+	methods: {        
         ...mapActions(['GET_FORECASTS'])        
     },    
     created() {
-        this.GET_FORECASTS()
+        this.GET_FORECASTS(this)
     }	
 }
 </script>

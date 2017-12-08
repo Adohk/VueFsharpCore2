@@ -1,11 +1,11 @@
 ﻿import Vue from 'vue'
-// import axios from 'axios'
+import VueAxiosPlugin from 'vue-axios-plugin'
 import router from './router'
 import store from './store'
 import { sync } from 'vuex-router-sync'
 import App from 'components/app-root'
 
-//Vue.prototype.$http = axios;
+Vue.use(VueAxiosPlugin)
 
 sync(store, router)
 
@@ -19,4 +19,4 @@ export {
     app,
     router,
     store
-}
+};

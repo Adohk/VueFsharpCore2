@@ -1,6 +1,5 @@
 ﻿import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -21,15 +20,13 @@ const mutations = {
 }
 
 // ACTIONS
-// Check this .then() and lambda for directly mapping response.data, should work though.
-// It is bitching to me about the "this" here with await, try without if it doesn't work.
 const actions = ({
     SET_COUNTER({ commit }, obj) {
         commit('MAIN_SET_COUNTER', obj)
     },
-    async GET_FORECASTS({ commit }) {
-        await axios.get('/api/SampleData/WeatherForecasts').then(forecasts => commit('SET_FORECASTS', forecasts.data))
-            .catch(console.log(error))
+    GET_FORECASTS({ commit }, instance) {
+        instance.$axios.get('/api/SampleData/WeatherForecasts').then(forecasts => commit('SET_FORECASTS', forecasts.data))
+            .catch(error => console.log(error))
     }
 })
 

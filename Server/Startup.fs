@@ -9,16 +9,16 @@ open Microsoft.AspNetCore.SpaServices.Webpack
 
 type FallbackDefaults =
     { controller : string
-      action : string}
-
+      action     : string }
+   
 type Startup private () =
     new (env: IHostingEnvironment) as this =
         Startup() then
-        let builder = ConfigurationBuilder()
-        builder.SetBasePath(env.ContentRootPath) |> ignore
-        builder.AddJsonFile("appsettings.json", optional = true, reloadOnChange = true) |> ignore
-        builder.AddEnvironmentVariables() |> ignore                         
-        //this.Configuration <- configuration
+        let builder =
+            ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional = true, reloadOnChange = true)
+                .AddEnvironmentVariables()
         this.Configuration <- builder.Build()
 
     member val Configuration : IConfigurationRoot = null with get, set
@@ -26,27 +26,25 @@ type Startup private () =
     member this.ConfigureServices(services: IServiceCollection) =
         services.AddMvc() |> ignore
 
-    member this.Configure(app: IApplicationBuilder, env: IHostingEnvironment, loggerFactory: ILoggerFactory) =        
+    member this.Configure(app: IApplicationBuilder, env: IHostingEnvironment, loggerFactory: ILoggerFactory) =
         loggerFactory.AddConsole(this.Configuration.GetSection("Logging")) |> ignore
         loggerFactory.AddDebug() |> ignore
 
         if (env.IsDevelopment()) then
-            app.UseDeveloperExceptionPage() |> ignore
-
-            let options = WebpackDevMiddlewareOptions();
+            let options = WebpackDevMiddlewareOptions()
             options.HotModuleReplacement <- true
+            app.UseDeveloperExceptionPage() |> ignore            
             app.UseWebpackDevMiddleware(options)
         else
             app.UseExceptionHandler("/Home/Error") |> ignore
 
-        app.UseStaticFiles() |> ignore                      
-
         let spaFallbackDefaults = { controller = "Home"; action = "Index"}
-        app.UseMvc(fun routes ->                       
+        app.UseStaticFiles() |> ignore
+        app.UseMvc(fun routes ->
             routes.MapRoute(
                 name = "default",
                 template = "{controller=Home}/{action=Index}/{id?}") |> ignore
             routes.MapSpaFallbackRoute(
-                name = "spa-fallback",                
+                name = "spa-fallback",
                 defaults = spaFallbackDefaults) |> ignore
         ) |> ignore
