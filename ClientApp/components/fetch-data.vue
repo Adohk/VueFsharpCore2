@@ -15,8 +15,11 @@ div
 				td {{ temperatureC }}
 				td {{ temperatureF }}
 				td {{ summary }}
-	p(v-else="")
+	p(v-else-if="forecasts == null")
+		em Could not contact server.		
+	p(v-else)
 		em Loading...
+
 </template>
 
 <script>
@@ -30,7 +33,8 @@ export default {
 		...mapState(['forecasts'])
 	},
 	methods: {
-        ...mapActions(['GET_FORECASTS'])
+		...mapActions(['GET_FORECASTS']),		
+		
     },
     created() {
         this.GET_FORECASTS(this)
