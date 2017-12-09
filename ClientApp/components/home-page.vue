@@ -10,8 +10,8 @@
 				|  for cross-platform server-side code
 			li
 				a(href="https://vuejs.org/") Vue.js
-				|  and
-				a(href="http://www.typescriptlang.org/") TypeScript
+				|  and 
+				a(href="https://vuex.vuejs.org/en/") Vuex
 				|                     for client-side code
 			li
 				a(href="https://webpack.github.io/") Webpack

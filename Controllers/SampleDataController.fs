@@ -4,10 +4,11 @@ open System
 open Microsoft.AspNetCore.Mvc
 
 type WeatherForecast =
-    { dateFormatted : string
-      temperatureC  : int
+    { date          : DateTime
+      temperatureC  : float
       summary       : string } 
-    member x.temperatureF = (float)x.temperatureC / 0.5556   
+    member x.temperatureF = Math.Round((x.temperatureC * 1.8 + 32.), 1) 
+    member x.dateFormatted = x.date.ToString("d")
 
 [<Route("api/[controller]")>]
 type SampleDataController () =
@@ -18,12 +19,7 @@ type SampleDataController () =
     [<HttpGet("WeatherForecasts")>]
     member API.WeatherForecasts() =
         let rng = Random()
-        let data = 
-            [1 .. 5] |> List.map (fun i ->
-                { 
-                    dateFormatted = DateTime.Now.AddDays((float)i).ToString("d"); 
-                    temperatureC = rng.Next(-20, 55);
-                    summary = summaries.[rng.Next(summaries.Length)] 
-                })
-        data
-                   
+        [1. .. 5.] |> List.map (fun i ->
+            { date = DateTime.Now.AddDays(i);
+              temperatureC = Math.Round(-20. + rng.NextDouble() * (50. - -22.), 1);
+              summary = summaries.[rng.Next(summaries.Length)] }) 
