@@ -10,16 +10,27 @@ type WeatherForecast =
     member x.temperatureF = Math.Round((x.temperatureC * 1.8 + 32.), 1) 
     member x.dateFormatted = x.date.ToString("d")
 
+module WeatherForecastUtils =
+    let private rng = Random()    
+    let private summaries = [| "Freezing"; "Bracing"; "Chilly"; "Cool"; "Mild"; "Warm"; "Balmy"; "Hot"; "Sweltering"; "Scorching" |]
+    let mutable min = -20.
+    let mutable max = 50.
+    let GetSummary(x) =
+        let i = Math.Floor(((x + abs min) / 7.))
+        match i with
+        | x when x <= 0. -> summaries.[int i] 
+        | _ -> summaries.[int i - 1] 
+
+    let CreateNew(i) =
+        let calc = Math.Round(min + rng.NextDouble() * (max - min), 1);
+        { date = DateTime.Now.AddDays(i);
+          temperatureC = calc;
+          summary = GetSummary calc }
+
 [<Route("api/[controller]")>]
 type SampleDataController () =
     inherit Controller()
 
-    let summaries = [| "Freezing"; "Bracing"; "Chilly"; "Cool"; "Mild"; "Warm"; "Balmy"; "Hot"; "Sweltering"; "Scorching" |]
-
     [<HttpGet("WeatherForecasts")>]
     member API.WeatherForecasts() =
-        let rng = Random()
-        [1. .. 5.] |> List.map (fun i ->
-            { date = DateTime.Now.AddDays(i);
-              temperatureC = Math.Round(-20. + rng.NextDouble() * (50. - -22.), 1);
-              summary = summaries.[rng.Next(summaries.Length)] }) 
+        [1. .. 5.] |> List.map WeatherForecastUtils.CreateNew
