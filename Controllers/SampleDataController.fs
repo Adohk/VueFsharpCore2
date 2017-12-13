@@ -13,8 +13,8 @@ type WeatherForecast =
 module WeatherForecastUtils =
     let private rng = Random()    
     let private summaries = [| "Freezing"; "Bracing"; "Chilly"; "Cool"; "Mild"; "Warm"; "Balmy"; "Hot"; "Sweltering"; "Scorching" |]
-    let mutable min = -20.
-    let mutable max = 50.
+    let private min = -20.
+    let private max = 50.
     let GetSummary(x) =
         let i = Math.Floor(((x + abs min) / 7.))
         match i with
@@ -22,7 +22,7 @@ module WeatherForecastUtils =
         | _ -> summaries.[int i - 1] 
 
     let CreateNew(i) =
-        let calc = Math.Round(min + rng.NextDouble() * (max - min), 1);
+        let calc = Math.Round(min + rng.NextDouble() * (max - min), 1)
         { date = DateTime.Now.AddDays(i);
           temperatureC = calc;
           summary = GetSummary calc }
