@@ -4,7 +4,8 @@
 			.col-sm-3
 				nav-menu(params="route: route")
 			.col-sm-9
-				router-view
+				transition(name="fade" mode="out-in" appear)
+					router-view
 </template>
 
 <script>
@@ -28,4 +29,11 @@ export default {
 </script>
 
 <style>
+	.fade-enter-active, .fade-leave-active {
+	transition: opacity .05s
+	}
+	
+	.fade-enter, .fade-leave-to {
+	opacity: 0
+	}
 </style>

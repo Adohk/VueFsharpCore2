@@ -2,7 +2,7 @@
 .main-nav
 	.navbar.navbar-inverse
 		.navbar-header
-			button.navbar-toggle(type="button" v-on:click="toggleCollapsed")
+			button.navbar-toggle(type="button" @click="toggleCollapsed")
 				span.sr-only Toggle navigation
 				span.icon-bar
 				span.icon-bar
@@ -10,12 +10,11 @@
 			a.navbar-brand(href="/") VueFsharpCore2
 		.clearfix
 		transition(name="slide")
-			.navbar-collapse.collapse.in(v-show="!collapsed")
+			.navbar-collapse.collapse.in(v-show="!collapsed" @click="toggleCollapsed")
 				ul.nav.navbar-nav
 					li(v-for="route in routes")
-						// TODO: highlight active link
-						router-link(:to="route.path")
-							span(:class="route.style")
+						router-link(:to="route.path" activeClass="active", exact=true)
+							span(:class="route.style" )
 							|  {{ route.display }}
 </template>
 
@@ -30,10 +29,12 @@
             }
         },
         methods: {
+            
             toggleCollapsed: function (event) {
                 this.collapsed = !this.collapsed;
             }
         }
+        
     }
 </script>
 

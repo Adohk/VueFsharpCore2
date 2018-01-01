@@ -12,24 +12,20 @@ type FallbackDefaults =
       action     : string }
    
 type Startup private () =
-    new (env: IHostingEnvironment) as this =
+    new (configuration : IConfiguration) as this =
         Startup() then
-        let builder =
-            ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional = true, reloadOnChange = true)
-                .AddEnvironmentVariables()
-        this.Configuration <- builder.Build()
+        this.Configuration <- configuration
 
-    member val Configuration : IConfigurationRoot = null with get, set
+    member val Configuration : IConfiguration = null with get, set
 
     member this.ConfigureServices(services: IServiceCollection) =
         services.AddMvc() |> ignore
 
     member this.Configure(app: IApplicationBuilder, env: IHostingEnvironment, loggerFactory: ILoggerFactory) =
-        loggerFactory.AddConsole(this.Configuration.GetSection("Logging")) |> ignore
-        loggerFactory.AddDebug() |> ignore
-
+        loggerFactory
+            .AddConsole(this.Configuration.GetSection("Logging"))
+            .AddDebug() |> ignore
+        System.Console.WriteLine(env.IsDevelopment())
         if (env.IsDevelopment()) then
             let options = WebpackDevMiddlewareOptions()
             options.HotModuleReplacement <- true
@@ -39,12 +35,13 @@ type Startup private () =
             app.UseExceptionHandler("/Home/Error") |> ignore
 
         let spaFallbackDefaults = { controller = "Home"; action = "Index"}
-        app.UseStaticFiles() |> ignore
-        app.UseMvc(fun routes ->
+        app
+            .UseStaticFiles()
+            .UseMvc(fun routes ->
             routes.MapRoute(
                 name = "default",
                 template = "{controller=Home}/{action=Index}/{id?}") |> ignore
             routes.MapSpaFallbackRoute(
                 name = "spa-fallback",
                 defaults = spaFallbackDefaults) |> ignore
-        ) |> ignore
+            ) |> ignore

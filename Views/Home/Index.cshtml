@@ -1,7 +1,14 @@
 ﻿@{ ViewData["Title"] = "Home Page"; }
 
-<div id="app"></div>
+<div id="app">
+    Loading...
+</div>
 
+<!-- SSR, not working atm -->
+<!-- <app id="app" asp-prerender-module="ClientApp/main"></app> -->
+
+
+<script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {
     <script src="~/dist/main.js" asp-append-version="true"></script>
 }
