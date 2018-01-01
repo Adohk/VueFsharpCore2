@@ -7,6 +7,10 @@ export const mutations = {
 
     SET_FORECASTS(state, forecasts) {
         state.forecasts = forecasts
+    },
+
+    SET_CONTACTS(state, contacts) {
+        state.contacts = contacts
     }
 
 }

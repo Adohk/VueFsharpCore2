@@ -54,6 +54,27 @@
 				|                 and the
 				code webpack
 				|  build tool produces minified static CSS and JavaScript files.
+				| 
+		p Other technologies in use:
+		ul
+			li
+				strong Live server code rebuild. 
+				| Rebuild server code on save using 
+				code Dotnet Watch
+				| .
+			li
+				strong ORM. 
+				code Entity Framework Core
+				|  for ORM needs!
+				| the database context greatly simplifies database usage,
+				| using a C# project for migrations.
+			li
+				strong Identity. 
+				| Abstract user management with the 
+				code Identity Core Framework
+				| ,
+				| use managers to simplify the creation and management of users.
+
 </template>
 
 <script>

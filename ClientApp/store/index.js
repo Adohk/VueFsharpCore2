@@ -8,7 +8,8 @@ Vue.use(Vuex)
 // STATE
 const state = {
     counter: 0,
-    forecasts: []
+    forecasts: [],
+    contacts: []
 }
 
 export default new Vuex.Store({

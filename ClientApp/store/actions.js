@@ -13,6 +13,16 @@ export const actions = ({
                 console.log(error);
                 commit('SET_FORECASTS', null);
             })
+    },
+
+    async GET_CONTACTS({ commit }, vm) {
+        commit('SET_CONTACTS', false)
+        await vm.$axios.get('/api/DbData/ContactsData').then(res => res.data)
+            .then(contacts => commit('SET_CONTACTS', contacts))
+            .catch(error => {
+                console.log(error);
+                commit('SET_CONTACTS', null);
+            })
     }
 
 })

@@ -38,7 +38,8 @@ export default {
 	},
 	methods: {
 		...mapActions(['GET_FORECASTS']),
-		Retry(){
+
+		Retry() {
 			this.GET_FORECASTS(this)
 		}		
     },

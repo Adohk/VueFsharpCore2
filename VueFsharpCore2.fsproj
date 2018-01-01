@@ -6,19 +6,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Models/ErrorViewModel.fs" />
+    <Compile Include="Models/Contact.fs" />
+    <Compile Include="Models/ApplicationUser.fs" />
+    <Compile Include="Models/AppDbContext.fs" />
+
     <Compile Include="Controllers/HomeController.fs" />
     <Compile Include="Controllers/SampleDataController.fs" />
-    <Compile Include="Models/ErrorViewModel.fs" />
+
+    <Compile Include="Controllers/DbDataController.fs" />
+    <Compile Include="Controllers/AccountController.fs" />    
+
     <Compile Include="Server/Startup.fs" />
     <Compile Include="Server/Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
