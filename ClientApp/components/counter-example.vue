@@ -13,37 +13,36 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+	import { mapActions, mapState } from "vuex";
 
-export default {
-	data() {
-		return {			
-			autoCount: 0
-		}
-	},
-	computed: {
-		...mapState({
-			currentCount: state => state.counter
-		})
-	},
-	methods: {
-		...mapActions(['SET_COUNTER']),
-
-		incrementCounter: function() {
-			var counter = this.currentCount + 1;
-			this.SET_COUNTER({ counter: counter });
+	export default {
+		data() {
+			return {
+				autoCount: 0
+			};
 		},
+		computed: {
+			...mapState({
+				currentCount: state => state.counter
+			})
+		},
+		methods: {
+			...mapActions(["SET_COUNTER"]),
 
-		resetCounter: function() {
-			this.SET_COUNTER({ counter: 0 });
-			this.autoCount = 0;
+			incrementCounter: function() {
+				var counter = this.currentCount + 1;
+				this.SET_COUNTER({ counter: counter });
+			},
+
+			resetCounter: function() {
+				this.SET_COUNTER({ counter: 0 });
+				this.autoCount = 0;
+			}
+		},
+		created() {
+			setInterval(() => {
+				this.autoCount += 1;
+			}, 1000);
 		}
-	},
-	created() {
-		setInterval(() => {
-			this.autoCount += 1
-		}, 1000)
-	}
-}
+	};
 </script>
-

@@ -12,7 +12,7 @@
 				a(href="https://vuejs.org/") Vue.js
 				|  and 
 				a(href="https://vuex.vuejs.org/en/") Vuex
-				|                     for client-side code
+				|					 for client-side code
 			li
 				a(href="https://webpack.github.io/") Webpack
 				|  for building and bundling client-side resources
@@ -31,27 +31,27 @@
 				|  then
 				em Back
 				|  to return
-				|                 here.
+				|				 here.
 			li
 				strong Webpack dev middleware
 				| . In development mode, there's no need to run the
 				code webpack
-				|                     build tool. Your client-side resources are dynamically built on demand. Updates are available as soon
-				|                 as you modify any file.
+				|					 build tool. Your client-side resources are dynamically built on demand. Updates are available as soon
+				|				 as you modify any file.
 			li
 				strong Hot module replacement
 				| . In development mode, you don't even need to reload the page after
-				|                 making most changes. Within seconds of saving changes to files, your Vue.js app will be rebuilt and
-				|                 a new instance injected is into the page.
+				|				 making most changes. Within seconds of saving changes to files, your Vue.js app will be rebuilt and
+				|				 a new instance injected is into the page.
 			li
 				strong Code splitting and lazy loading
 				| . Vue.js components may optionally be bundled individually and
-				|                 loaded on demand. For example, the code and template for 'Counter' is not loaded until you navigate to
-				|                 it..
+				|				 loaded on demand. For example, the code and template for 'Counter' is not loaded until you navigate to
+				|				 it..
 			li
 				strong Efficient production builds
 				| . In production mode, development-time features are disabled,
-				|                 and the
+				|				 and the
 				code webpack
 				|  build tool produces minified static CSS and JavaScript files.
 				| 
@@ -78,11 +78,9 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-        }
-    },
-}
+	export default {
+		data() {
+			return {};
+		}
+	};
 </script>
-

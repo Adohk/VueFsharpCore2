@@ -19,35 +19,36 @@
 </template>
 
 <script>
-    import { routes } from '../routes'
+	import { routes } from "../routes";
 
-    export default {
-        data() {
-            return {
-                routes,
-                collapsed: true
-            }
-        },
-        methods: {
-            
-            toggleCollapsed: function (event) {
-                this.collapsed = !this.collapsed;
-            }
-        }
-        
-    }
+	export default {
+		data() {
+			return {
+				routes,
+				collapsed: true
+			};
+		},
+		methods: {
+			toggleCollapsed: function(event) {
+				this.collapsed = !this.collapsed;
+			}
+		}
+	};
 </script>
 
 <style>
-    .slide-enter-active, .slide-leave-active {
-        transition: max-height .35s
-    }
+	.slide-enter-active,
+	.slide-leave-active {
+		transition: max-height 0.35s;
+	}
 
-    .slide-enter, .slide-leave-to {
-        max-height: 0px;
-    }
+	.slide-enter,
+	.slide-leave-to {
+		max-height: 0px;
+	}
 
-    .slide-enter-to, .slide-leave {
-        max-height: 20em;
-    }
+	.slide-enter-to,
+	.slide-leave {
+		max-height: 20em;
+	}
 </style>

@@ -11,8 +11,6 @@ open VueFsharpCore2.Models
 open Microsoft.EntityFrameworkCore.Metadata.Internal
 open Microsoft.AspNetCore.Rewrite.Internal.ApacheModRewrite
 open Microsoft.CodeAnalysis.Semantics
-open Microsoft.AspNetCore.Mvc
-open Microsoft.AspNetCore.Mvc
 
 [<Route("api/[controller]")>]
 type DbDataController (db:AppDbContext) =
@@ -20,6 +18,7 @@ type DbDataController (db:AppDbContext) =
     
     //Api/DbData/CreateContact
     //[<FromBody>] newContact:Contact
+    //Mock Create Contact using EFCore
     [<HttpPost("[action]")>]
     member API.CreateContact() = 
         let newContact = Contact(Email = "test@test.com", FirstName = "Adohk", LastName = "321", Phone = "123" )
@@ -36,13 +35,17 @@ type DbDataController (db:AppDbContext) =
 
     [<HttpGet("[action]")>]
     member API.ContactsData() = 
-        db.Contacts.ToList()
+        try
+            let list = db.Contacts.ToList()
+            API.Ok(list) :> IActionResult
+        with
+            | ex -> API.BadRequest([ex.Message]) :> IActionResult
+        
 
     [<HttpGet("id/{id}")>]
     member API.ContactsData(id:int) = 
-        db.Contacts.Find(id)
+        API.Ok(db.Contacts.Find(id))
         
     [<HttpGet("name/{FirstName}")>]
     member API.ContactsData(firstName:string) = 
-        db.Contacts.Where(fun x -> x.FirstName = firstName)
-    
+        API.Ok(db.Contacts.Where(fun x -> x.FirstName = firstName))

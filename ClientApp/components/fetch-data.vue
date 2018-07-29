@@ -1,7 +1,8 @@
 ﻿<template lang="pug">
 div
 	h1 Weather forecast
-	p This component demonstrates fetching data from the server.
+	p This component demonstrates fetching data from the server. 
+		button.btn.btn-default(@click="Retry()") New Data
 	.table-responsive(v-if="forecasts")
 		table.table
 			thead
@@ -23,28 +24,28 @@ div
 			p
 			button.btn.btn-default(@click="Retry()") Retry
 	p(v-else)
-		em Loading...		
+		em Loading...
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+	import { mapState, mapActions } from "vuex";
 
-export default {
-	data() {
-		return {}
-	},
-	computed: {
-		...mapState(['forecasts'])
-	},
-	methods: {
-		...mapActions(['GET_FORECASTS']),
+	export default {
+		data() {
+			return {};
+		},
+		computed: {
+			...mapState(["forecasts"])
+		},
+		methods: {
+			...mapActions(["GET_FORECASTS"]),
 
-		Retry() {
-			this.GET_FORECASTS(this)
-		}		
-    },
-    created() {
-        this.GET_FORECASTS(this)
-    }
-}
+			Retry() {
+				this.GET_FORECASTS(this);
+			}
+		},
+		created() {
+			this.GET_FORECASTS(this);
+		}
+	};
 </script>

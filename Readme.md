@@ -10,7 +10,7 @@ Vue + Vuex | F# Dotnet Core 2.0
  * `npm install`
  * `npm run dev` or `npm run prod` or `dotnet run`
  
- other commands: `npm run build`, `npm run build-all`, `npm run build-prod`, `npm run publish` 
+ other commands: `build`, `build-all`, `build-prod`, `publish` 
 
  # Database Migrations:
  * A C# project with references to the F# DbContext and models.

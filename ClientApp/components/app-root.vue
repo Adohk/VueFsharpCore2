@@ -9,33 +9,25 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import CounterExample from './counter-example'
-import FetchDataDb from './fetch-data-db'
-import FetchData from './fetch-data'
-import HomePage from './home-page'
-import NavMenu from './nav-menu'
+	import Vue from "vue";
+	const NavMenu = () => import("./nav-menu");
 
-Vue.component('counter-example', CounterExample);
-Vue.component('fetch-data-db', FetchDataDb);
-Vue.component('fetch-data', FetchData);
-Vue.component('home-page', HomePage);
-Vue.component('nav-menu', NavMenu);
+	Vue.component("nav-menu", NavMenu);
 
-export default {
-    data() {
-        return {
-        }
-    }
-}
+	export default {
+		data() {
+			return {};
+		}
+	};
 </script>
 
 <style>
-	.fade-enter-active, .fade-leave-active {
-	transition: opacity .05s
+	.fade-enter-active,
+	.fade-leave-active {
+		transition: opacity 0.05s;
 	}
-	
-	.fade-enter, .fade-leave-to {
-	opacity: 0
+	.fade-enter,
+	.fade-leave-to {
+		opacity: 0;
 	}
 </style>
